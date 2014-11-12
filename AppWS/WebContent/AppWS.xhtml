@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<style type="text/css">
+.ui-widget {
+	font-size: 80% !important;
+}
+</style>
+	<title>Aplikasi WS</title>
+</h:head>
+
+<h:body>
+	<p:panel style="border: transparent"></p:panel>
+	<table width="100%">
+		<tr>
+			<td width="5%"></td>
+			<td colspan="2"><p:panel>
+					<h1>Aplikasi WS</h1>
+				</p:panel></td>
+
+			<td width="5%"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2"><p:panel>
+					<h:form>
+						<table>
+							<tr>
+								<td></td>
+								<td><p:commandButton value="Refresh" id="nonAjax"
+										actionListener="#{AppWS.refresh()}" ajax="false" /></td>
+								<td></td>
+							</tr>
+						</table>
+
+						<p:dataTable var="data" value="#{AppWS.pocs}" rows="10"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+					
+								<p:column style="font-size: small" headerText="ID Transaksi">
+									<h:outputText value="#{data.IDTransaksi}" />
+								</p:column>
+
+								<p:column style="font-size: small"
+									headerText="Tanggal Transaksi">
+									<h:outputText value="#{data.tanggalTransaksi}" />
+								</p:column>
+							</p:dataTable>
+					</h:form>
+				</p:panel></td>
+			<td></td>
+		</tr>
+	</table>
+
+
+
+	<p:dialog visible="#{AppWS.kondisiWarn}" header="Perhatian!"
+		widgetVar="BBB" modal="true" width="1000" height="300">
+		<table>
+			<tr>
+				<td></td>
+				<td width="300px"><h:outputText
+						style="color: red; font-weight: bold" value="#{AppWS.strMessage}" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr height="600px">
+				<td></td>
+				<td><p:outputLabel value="#{AppWS.strMessageLong}" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</p:dialog>
+
+
+
+
+
+
+
+</h:body>
+</html>

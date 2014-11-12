@@ -1,0 +1,102 @@
+package ojk.app.poc3;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = { "IDTransaksi", "FullName", "Keterangan", "Status",
+		"NilaiTransaksi", "NilaiDisetujui", "Pin" })
+public class POC3 implements Serializable {
+	public POC3() {
+
+	}
+
+	public POC3(BigDecimal IDTransaksi, String FullName, String Keterangan,
+			String Status, BigDecimal NilaiTransaksi,
+			BigDecimal NilaiDisetujui, String Pin) {
+		this.IDTransaksi = IDTransaksi;
+		this.FullName = FullName;
+		this.Keterangan = Keterangan;
+		this.Status = Status;
+		this.NilaiTransaksi = NilaiTransaksi;
+		this.NilaiDisetujui = NilaiDisetujui;
+		this.Pin = Pin;
+	}
+
+	@XmlElement(name = "IDTransaksi")
+	private BigDecimal IDTransaksi;
+	@XmlElement(name = "FullName")
+	private String FullName;
+	@XmlElement(name = "Keterangan")
+	private String Keterangan;
+	@XmlElement(name = "Status")
+	private String Status;
+	@XmlElement(name = "NilaiTransaksi")
+	private BigDecimal NilaiTransaksi;
+	@XmlElement(name = "NilaiDisetujui")
+	private BigDecimal NilaiDisetujui;
+	@XmlElement(name = "Pin")
+	private String Pin;
+
+	public BigDecimal getIDTransaksi() {
+		return IDTransaksi;
+	}
+
+	public void setIDTransaksi(BigDecimal iDTransaksi) {
+		IDTransaksi = iDTransaksi;
+	}
+
+	public String getFullName() {
+		return FullName;
+	}
+
+	public void setFullName(String fullName) {
+		FullName = fullName;
+	}
+
+	public String getKeterangan() {
+		return Keterangan;
+	}
+
+	public void setKeterangan(String keterangan) {
+		Keterangan = keterangan;
+	}
+
+	public String getStatus() {
+		return Status;
+	}
+
+	public void setStatus(String status) {
+		Status = status;
+	}
+
+	public BigDecimal getNilaiTransaksi() {
+		return NilaiTransaksi;
+	}
+
+	public void setNilaiTransaksi(BigDecimal nilaiTransaksi) {
+		NilaiTransaksi = nilaiTransaksi;
+	}
+
+	public BigDecimal getNilaiDisetujui() {
+		return NilaiDisetujui;
+	}
+
+	public void setNilaiDisetujui(BigDecimal nilaiDisetujui) {
+		NilaiDisetujui = nilaiDisetujui;
+	}
+
+	public String getPin() {
+		return Pin;
+	}
+
+	public void setPin(String pin) {
+		Pin = pin;
+	}
+
+}

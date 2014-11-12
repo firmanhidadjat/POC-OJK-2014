@@ -1,0 +1,153 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<style type="text/css">
+.ui-widget {
+	font-size: 80% !important;
+}
+</style>
+	<title>Aplikasi 5</title>
+
+</h:head>
+
+<h:body>
+	<p:panel style="border: transparent"></p:panel>
+	<table width="100%">
+		<tr>
+			<td width="5%"></td>
+			<td colspan="2"><p:panel>
+					<h1>Aplikasi 5</h1>
+				</p:panel></td>
+
+			<td width="5%"></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td colspan="2"><p:panel>
+					<h:form>
+						<p:commandButton value="Refresh"
+							actionListener="#{App5.refresh()}" ajax="false" />
+
+						<p:dataTable var="data" value="#{App5.pocs}" rows="5"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+
+							<p:column style="font-size: small" headerText="ID Transaksi">
+								<h:outputText value="#{data.IDTransaksi}" />
+							</p:column>
+
+							<p:column style="font-size: small" headerText="Tanggal Transaksi">
+								<h:outputText value="#{data.tanggalTransaksi}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Original Amount">
+								<h:outputText value="#{data.originalAmount}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Approved Amount">
+								<h:outputText value="#{data.approvedAmount}" />
+							</p:column>
+
+							<p:column style="width:32px;text-align: center">
+								<p:commandButton update=":formSubmit" icon="ui-icon-check"
+									title="  ">
+									<f:setPropertyActionListener value="#{data}"
+										target="#{App5.selectedPOC}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</p:panel></td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td cellspan="2"><p:panel id="formSubmit" visible="true">
+					<h:form>
+						<table>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="ID Transaksi" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true" id="idtrans"
+										required="true" value="#{App5.selectedPOC.IDTransaksi}" /></td>
+								<td><p:message for="idtrans" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Tanggal Transaksi" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true" id="tanggalTrans"
+										required="true" value="#{App5.selectedPOC.tanggalTransaksi}" /></td>
+								<td><p:message for="tanggalTrans" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Original Amount" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true" id="orgAmount"
+										required="true" value="#{App5.selectedPOC.originalAmount}" /></td>
+								<td><p:message for="orgAmount" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Approved Amount" /></td>
+								<td>:</td>
+								<td><p:inputText id="appAmount" required="true"
+										value="#{App5.selectedPOC.approvedAmount}" /></td>
+								<td><p:message for="appAmount" display="icon" /></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><p:commandButton value="Update"
+										actionListener="#{App5.submit()}" ajax="false" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</h:form>
+
+
+				</p:panel></td>
+
+		</tr>
+	</table>
+
+
+	<p:dialog visible="#{App5.kondisiWarn}" header="Perhatian!"
+		widgetVar="BBB" modal="true" width="1000" height="300">
+		<table>
+			<tr>
+				<td></td>
+				<td width="300px"><h:outputText
+						style="color: red; font-weight: bold" value="#{App5.strMessage}" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr height="600px">
+				<td></td>
+				<td><p:outputLabel value="#{App5.strMessageLong}" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</p:dialog>
+
+</h:body>
+</html>

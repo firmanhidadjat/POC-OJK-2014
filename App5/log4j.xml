@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Konfigurasi appender stdout -->
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %C:%L %-5p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Konfigurasi appender file -->
+	<appender name="file" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="log/AppOJK.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %C:%L %-5p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Konfigurasi appender DB -->
+	<appender name="DB" class="org.apache.log4j.jdbc.JDBCAppender">
+		<param name="URL" value="jdbc:mysql://localhost:3306/DBNAME" />
+		<param name="driver" value="com.mysql.jdbc.Driver" />
+		<param name="user" value="user_name" />
+		<param name="password" value="password" />
+		<param name="sql"
+			value="INSERT INTO LOGS VALUES('%x','%d{yyyy-MM-dd HH:mm:ss}','%C:%L','%p','%m')" />
+	</appender>
+
+	<!-- rootLogger -->
+	<root>
+		<priority value="ERROR" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="file" />
+		<!-- <appender-ref ref="DB" /> -->
+	</root>
+</log4j:configuration>

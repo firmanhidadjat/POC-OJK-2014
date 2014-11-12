@@ -1,0 +1,148 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<style type="text/css">
+.ui-widget {
+	font-size: 80% !important;
+}
+</style>
+	<title>Form A</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="form1">
+		<table width="100%">
+			<tr>
+				<td width="5%"></td>
+				<td colspan="2"><p:panel>
+						<h1>Form A</h1>
+					</p:panel></td>
+
+				<td width="5%"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2"><p:panel>
+
+						<table>
+							<tr>
+								<td></td>
+								<td><p:outputLabel for="idtrans" id="a1"
+										value="ID Transaksi" /></td>
+								<td>:</td>
+								<td><p:inputText id="idtrans" required="true"
+										value="#{formA.idTransaksi}" /></td>
+								<td><p:message for="idtrans" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel for="tanggalTrans" id="a2"
+										value="Tanggal Transaksi" /></td>
+								<td>:</td>
+								<td><p:calendar id="tanggalTrans" required="true"
+										value="#{formA.tanggalTransaksi}" pattern="dd-MM-yyyy"
+										mask="true" /></td>
+								<td><p:message for="tanggalTrans" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><p:commandButton value="Submit" id="submitBTN"
+										actionListener="#{formA.kirimData}" ajax="true" update="form1:tabelData" /></td>
+								<td></td>
+							</tr>
+						</table>
+
+					</p:panel></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2"><p:panel>
+
+						<table>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+
+						<p:dataTable id="tabelData" var="data" value="#{formA.pr}">
+							<p:column style="font-size: small" headerText="ID Transaksi">
+								<h:outputText value="#{data.IDTransaksi}" />
+							</p:column>
+
+							<p:column style="font-size: small" headerText="Tanggal">
+								<h:outputText value="#{formA.tanggalTransaksiTbl}" />
+							</p:column>
+
+							<p:column style="font-size: small" headerText="Status">
+								<h:outputText value="#{data.status}" />
+							</p:column>
+						</p:dataTable>
+						<h:form>
+							<table>
+								<tr>
+									<td></td>
+									<td><p:commandButton value="Connection Test"
+											actionListener="#{formA.echo()}" ajax="false" /></td>
+									<td></td>
+								</tr>
+							</table>
+						</h:form>
+					</p:panel></td>
+				<td></td>
+			</tr>
+		</table>
+	</h:form>
+
+
+	<p:dialog visible="#{formA.kondisiWarn}" header="Perhatian!"
+		widgetVar="BBB" modal="true" width="1000" height="300">
+		<table>
+			<tr>
+				<td></td>
+				<td width="300px"><h:outputText
+						style="color: red; font-weight: bold" value="#{formA.strMessage}" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr height="600px">
+				<td></td>
+				<td><p:outputLabel value="#{formA.strMessageLong}" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</p:dialog>
+
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage value="img/ajax-loader.gif" />
+
+	</p:dialog>
+
+
+
+</h:body>
+</html>

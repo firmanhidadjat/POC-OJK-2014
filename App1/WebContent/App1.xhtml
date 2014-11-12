@@ -1,0 +1,180 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<style type="text/css">
+.ui-widget {
+	font-size: 80% !important;
+}
+</style>
+	<title>Aplikasi 1</title>
+</h:head>
+
+<h:body>
+	<p:panel style="border: transparent"></p:panel>
+	<table width="100%">
+		<tr>
+			<td width="5%"></td>
+			<td colspan="2"><p:panel>
+					<h1>Aplikasi 1</h1>
+				</p:panel></td>
+
+			<td width="5%"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2"><p:panel>
+					<h:form>
+						<table>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="ID Transaksi" /></td>
+								<td>:</td>
+								<td><p:inputText id="idtransaksi" required="true"
+										value="#{App1.idTransaksi}" /></td>
+								<td><p:message for="idtransaksi" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Full Name" /></td>
+								<td>:</td>
+								<td><p:inputText id="fullname" required="true"
+										value="#{App1.fullName}" /></td>
+								<td><p:message for="fullname" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Keterangan" /></td>
+								<td>:</td>
+								<td><p:inputText id="keterangan" required="true"
+										value="#{App1.keterangan}" /></td>
+								<td><p:message for="keterangan" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Nilai Transaksi" /></td>
+								<td>:</td>
+								<td><p:inputText id="nilaitransaksi" required="true"
+										value="#{App1.nilaiTransaksi}" /></td>
+								<td><p:message for="nilaitransaksi" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="PIN" /></td>
+								<td>:</td>
+								<td><p:inputText id="pin" required="true"
+										value="#{App1.pin}" /></td>
+								<td><p:message for="pin" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><p:commandButton value="Submit" id="nonAjax"
+										actionListener="#{App1.submit()}" ajax="false" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</h:form>
+				</p:panel></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2"><p:panel>
+					<h:form>
+						<table>
+							<tr>
+								<td></td>
+								<td><p:commandButton value="Refresh"
+										actionListener="#{App1.refresh()}" ajax="false" /></td>
+								<td></td>
+							</tr>
+						</table>
+
+
+						<p:dataTable var="data" value="#{App1.pocs}" rows="5"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+
+
+							<p:column style="font-size: small" headerText="ID Transaksi">
+								<h:outputText value="#{data.IDTransaksi}" />
+							</p:column>
+
+							<p:column style="font-size: small" headerText="Full Name">
+								<h:outputText value="#{data.fullName}" />
+							</p:column>
+
+							<p:column style="font-size: small" headerText="Keterangan">
+								<h:outputText value="#{data.keterangan}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Status">
+								<h:outputText value="#{data.status}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Nilai Transaksi">
+								<h:outputText value="#{data.nilaiTransaksi}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Nilai Disetujui">
+								<h:outputText value="#{data.nilaiDisetujui}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="PIN">
+								<h:outputText value="#{data.pin}" />
+							</p:column>
+						</p:dataTable>
+						<table>
+							<tr>
+								<td></td>
+								<td><p:commandButton value="Connection Test"
+										actionListener="#{App1.echo()}" ajax="false" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</h:form>
+				</p:panel></td>
+			<td></td>
+		</tr>
+	</table>
+
+
+
+	<p:dialog visible="#{App1.kondisiWarn}" header="Perhatian!"
+		widgetVar="BBB" modal="true" width="1000" height="300">
+		<table>
+			<tr>
+				<td></td>
+				<td width="300px"><h:outputText
+						style="color: red; font-weight: bold" value="#{App1.strMessage}" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr height="600px">
+				<td></td>
+				<td><p:outputLabel value="#{App1.strMessageLong}" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</p:dialog>
+
+
+
+
+
+
+
+</h:body>
+</html>

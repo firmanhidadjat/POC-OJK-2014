@@ -1,0 +1,237 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<style type="text/css">
+.ui-widget {
+	font-size: 80% !important;
+}
+</style>
+	<title>Aplikasi 2</title>
+
+</h:head>
+
+<h:body>
+
+
+	<p:panel style="border: transparent"></p:panel>
+	<table width="100%">
+		<tr>
+			<td width="5%"></td>
+			<td colspan="2"><p:panel>
+					<h1>Aplikasi 2</h1>
+				</p:panel></td>
+
+			<td width="5%"></td>
+		</tr>
+
+
+		<tr>
+			<td></td>
+			<td colspan="2"><p:panel>
+
+					<h:form>
+
+
+						<p:dataTable id="tabelData" var="data" value="#{App2.pocs}"
+							rows="5" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+
+							<p:column style="font-size: small" headerText="ID Transaksi">
+								<h:outputText value="#{data.transactionID}" />
+							</p:column>
+
+							<p:column style="font-size: small" headerText="First Name">
+								<h:outputText value="#{data.firstName}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Last Name">
+								<h:outputText value="#{data.lastName}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Notes">
+								<h:outputText value="#{data.notes}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Status">
+								<h:outputText value="#{data.status}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Transaction Value">
+								<h:outputText value="#{data.transactionValue}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="Approved Amount">
+								<h:outputText value="#{data.approvedAmount}" />
+							</p:column>
+							<p:column style="font-size: small" headerText="PIN">
+								<h:outputText value="#{data.pin}" />
+							</p:column>
+							<p:column style="width:32px;text-align: center">
+								<p:commandButton update=":formSubmit" icon="ui-icon-check"
+									title="  ">
+									<f:setPropertyActionListener value="#{data}"
+										target="#{App2.selectedPOC}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+
+
+					</h:form>
+
+
+				</p:panel></td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td cellspan="2"><p:panel id="formSubmit" visible="true">
+					<h:form>
+						<table>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Transaction ID" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true"
+										value="#{App2.selectedPOC.transactionID}" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="First Name" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true"
+										value="#{App2.selectedPOC.firstName}" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Last Name" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true"
+										value="#{App2.selectedPOC.lastName}" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Status" /></td>
+								<td>:</td>
+								<td><p:inputText id="status"
+										value="#{App2.selectedPOC.status}" required="true" /></td>
+								<td><p:message for="status" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Notes" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true"
+										value="#{App2.selectedPOC.notes}" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Transaction Value" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true"
+										value="#{App2.selectedPOC.transactionValue}" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Approved Amount" /></td>
+								<td>:</td>
+								<td><p:inputText value="#{App2.selectedPOC.approvedAmount}"
+										required="true" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="PIN" /></td>
+								<td>:</td>
+								<td><p:inputText readonly="true"
+										value="#{App2.selectedPOC.pin}" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><p:commandButton value="Submit" id="nonAjax"
+										actionListener="#{App2.submit()}" ajax="false" /></td>
+								<td></td>
+							</tr>
+						</table>
+						<p:commandButton value="BABABAB" type="button"
+							onclick="PF('popupWarning').show();" />
+					</h:form>
+
+
+				</p:panel></td>
+
+		</tr>
+	</table>
+
+	<p:dialog header="Perhatian!" widgetVar="popupWarning" modal="true"
+		height="100">
+		<h:outputText value="Di sini pesaannnnnnnnnnnnnnnnn" />
+	</p:dialog>
+
+	<p:dialog visible="#{App2.kondisiWarn}" header="Perhatian!"
+		widgetVar="BBB" modal="true" width="1000" height="300">
+		<table>
+			<tr>
+				<td></td>
+				<td width="300px"><h:outputText
+						style="color: red; font-weight: bold" value="#{App2.strMessage}" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr height="600px">
+				<td></td>
+				<td><p:outputLabel value="#{App2.strMessageLong}" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</p:dialog>
+
+
+
+	<h:form>
+		<p:commandButton value="BBB" actionListener="#{App2.dodol()}" />
+	</h:form>
+
+	<h:form>
+		<p:commandButton value="Send" icon="ui-icon-refresh"
+			actionListener="#{App2.dodol}" />
+	</h:form>
+
+
+
+
+
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" oncomplete="PF('tabelData').update()"/>
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage value="img/ajax-loader.gif" />
+	</p:dialog>
+
+
+
+
+
+
+</h:body>
+</html>

@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Form A</title>
+</h:head>
+
+<h:body>
+	<h1>Form A</h1>
+	<h:form>
+
+		<table>
+
+			<tr>
+				<td></td>
+				<td><p:outputLabel for="idTrans" value="ID Transaksi" /></td>
+				<td>:</td>
+				<td><p:inputText id="idTrans" value="#{formA.idTransaksi}" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><p:outputLabel for="tanggalTrans" value="Tanggal Transaksi" /></td>
+				<td>:</td>
+				<td><p:calendar id="tanggalTrans"
+						value="#{formA.tanggalTransaksi}" pattern="dd-MM-yyyy" mask="true" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><p:commandButton value="Submit" id="nonAjax"
+						actionListener="#{formA.kirimData}" ajax="false" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</h:form>
+ 
+#{formA.idTransaksi}
+
+<h:form>
+		<table>
+			<tr>
+				<td></td>
+				<td></td>
+				<td><p:commandButton value="Refresh"
+						actionListener="#{formA.getData()}" ajax="false" /></td>
+				<td></td>
+			</tr>
+		</table>
+
+		<p:dataTable var="car" value="#{formA.idTransaksi}">
+			<p:column headerText="ID Transaksi">
+				<h:outputText value="#{formA.idTransaksi}" />
+			</p:column>
+
+			<p:column headerText="Tanggal">
+				<h:outputText value="#{formA.tanggalTransaksi}" />
+			</p:column>
+
+			<p:column headerText="Status">
+				<h:outputText value="#{formA.status}" />
+			</p:column>
+		</p:dataTable>
+
+	</h:form>
+
+
+
+</h:body>
+</html>

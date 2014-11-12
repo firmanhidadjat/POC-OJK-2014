@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<style type="text/css">
+.ui-widget {
+	font-size: 80% !important;
+}
+</style>
+	<title>Aplikasi 1</title>
+</h:head>
+
+<h:body>
+	<p:panel style="border: transparent"></p:panel>
+	<table width="100%">
+		<tr>
+			<td width="5%"></td>
+			<td colspan="2"><p:panel>
+					<h1>Aplikasi 1_2</h1>
+				</p:panel></td>
+
+			<td width="5%"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2"><p:panel>
+					<h:form>
+						<table>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="User Name" /></td>
+								<td>:</td>
+								<td><p:inputText id="username" required="true"
+										value="#{App1_2.userName}" /></td>
+								<td><p:message for="username" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Password" /></td>
+								<td>:</td>
+								<td>
+								
+								<p:password id="password" required="true"
+										value="#{App1_2.password}" /></td>
+								<td><p:message for="password" display="icon" /></td>
+							</tr>
+							
+							
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><p:commandButton value="Submit" id="nonAjax"
+										actionListener="#{App1_2.echo()}" ajax="false" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</h:form>
+				</p:panel></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2"></td>
+			<td></td>
+		</tr>
+	</table>
+
+
+
+	<p:dialog visible="#{App1_2.kondisiWarn}" header="Perhatian!"
+		widgetVar="BBB" modal="true" width="1000" height="300">
+		<table>
+			<tr>
+				<td></td>
+				<td width="300px"><h:outputText
+						style="color: red; font-weight: bold" value="#{App1_2.strMessage}" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr height="600px">
+				<td></td>
+				<td><p:outputLabel value="#{App1_2.strMessageLong}" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</p:dialog>
+
+
+
+
+
+
+
+</h:body>
+</html>
