@@ -228,3 +228,4 @@ pip-log.txt
 .metadata/
 *.txt
 .factorypath
+.tern-project
