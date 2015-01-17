@@ -39,8 +39,8 @@ public class AppResources {
 
 		POC6Client p = new POC6Client();
 
-		if (p.sendData("submit", IDTransaksi, TanggalTransaksi, OriginalAmount,
-				ApprovedAmount) == 0) {
+		if (p.sendData("StringUsername", "StringPassword", "submit",
+				IDTransaksi, TanggalTransaksi, OriginalAmount, ApprovedAmount) == 0) {
 			return 0;
 		} else {
 			log.error("Kemungkinan proses insert ke DB gagal");

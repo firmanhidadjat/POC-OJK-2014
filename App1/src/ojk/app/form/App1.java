@@ -7,14 +7,15 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
 import ojk.app.poc1.POC1;
 import ojk.app.poc1.client.POC1Client;
 import ojk.dao.impl.DaoPOC1Impl;
+import ojk.app.login.Login;
 
 @ManagedBean(name = "App1")
 @RequestScoped
@@ -35,6 +36,18 @@ public class App1 implements Serializable {
 
 	public App1() {
 		refresh();
+
+	}
+
+	@ManagedProperty(value = "#{Login}")
+	private Login login;
+
+	public void setLogin(Login clogin) {
+		this.login = clogin;
+	}
+
+	public Login getLogin() {
+		return login;
 	}
 
 	public void clearMessage() {
@@ -47,7 +60,8 @@ public class App1 implements Serializable {
 		clearMessage();
 		POC1Client p = new POC1Client();
 		try {
-			if (!p.echo().equals("cobaKoneksi")) {
+			if (!p.echo(login.getUsernameCache(), login.getPasswordCache())
+					.equals("cobaKoneksi")) {
 				this.strMessage = "Koneksi error";
 				this.strMessageLong = "Koneksi error";
 				this.kondisiWarn = true;
@@ -59,7 +73,14 @@ public class App1 implements Serializable {
 
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));
-			this.strMessage = e.getMessage();
+			if (e.getMessage().contains("Unauthorized address")) {
+				this.strMessage = "Invalid user name or password";
+			} else if (e.getMessage().contains("Forbidden IP Address")) {
+				this.strMessage = "Forbidden IP Address";
+			} else {
+				this.strMessage = e.getMessage();
+//				throw new Exception(e);
+			}
 			this.strMessageLong = LoggerUtil.getStackTrace(e);
 			this.kondisiWarn = true;
 		}
@@ -67,10 +88,10 @@ public class App1 implements Serializable {
 
 	public void submit() {
 		clearMessage();
-		// POC1Client p = new POC1Client();
 		try {
-			POC1Client.sendData("submit", idTransaksi.toString(), fullName,
-					keterangan, "", nilaiTransaksi.toString(), "0",
+			POC1Client.sendData(login.getUsernameCache(),
+					login.getPasswordCache(), "submit", idTransaksi.toString(),
+					fullName, keterangan, "", nilaiTransaksi.toString(), "0",
 					pin.toString());
 			DaoPOC1Impl.insert(idTransaksi, fullName, keterangan, "",
 					nilaiTransaksi, new BigDecimal("0"), pin.toString());
@@ -85,7 +106,14 @@ public class App1 implements Serializable {
 			pocs = d.read();
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));
-			this.strMessage = e.getMessage();
+			if (e.getMessage().contains("Unauthorized address")) {
+				this.strMessage = "Invalid user name or password";
+			} else if (e.getMessage().contains("Forbidden IP Address")) {
+				this.strMessage = "Forbidden IP Address";
+			} else {
+				this.strMessage = e.getMessage();
+//				throw new Exception(e);
+			}
 			this.strMessageLong = LoggerUtil.getStackTrace(e);
 			this.kondisiWarn = true;
 		}

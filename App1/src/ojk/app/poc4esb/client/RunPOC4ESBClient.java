@@ -15,21 +15,22 @@ public class RunPOC4ESBClient {
 		for (int i = 0; i < 1; i++) {
 			POC4ESBClient d = new POC4ESBClient();
 
-			if (d.getResult("submit", String.valueOf(i), sdf.format(new Date())) != null) {
+			if (d.getResult("Budi", "PasswordBudi", "submit",
+					String.valueOf(i), sdf.format(new Date())) != null) {
 				System.out.println("submit Kirim data sakses");
 			} else {
 				System.out.println("submit Kirim data gagal");
 			}
-			if (d.sendData("submitAsync", String.valueOf(i + 1),
-					sdf.format(new Date())) == 0) {
+			if (d.sendData("Budi", "PasswordBudi", "submitAsync",
+					String.valueOf(i + 1), sdf.format(new Date())) == 0) {
 				System.out.println("submitAsync Kirim data sakses");
 			} else {
 				System.out.println("submitAsync Kirim data gagal");
 			}
-			
+
 			Thread.sleep(6000);
-			if (d.getResult("getResult", String.valueOf(i + 1),
-					sdf.format(new Date())) != null) {
+			if (d.getResult("Budi", "PasswordBudi", "getResult",
+					String.valueOf(i + 1), sdf.format(new Date())) != null) {
 				System.out.println("getResult Kirim data sakses");
 			} else {
 				System.out.println("getResult Kirim data gagal");

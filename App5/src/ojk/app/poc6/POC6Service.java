@@ -51,7 +51,8 @@ public class POC6Service {
 					.getApprovedAmount());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			POC6Client p = new POC6Client();
-			p.sendData("update", o.getIDTransaksi().toString(), sdf.format(o
+			p.sendData("StringUsername", "StringPassword", "update", o
+					.getIDTransaksi().toString(), sdf.format(o
 					.getTanggalTransaksi()), o.getOriginalAmount().toString(),
 					o.getApprovedAmount().toString());
 		} catch (Exception e) {

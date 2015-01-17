@@ -12,6 +12,8 @@ import javax.xml.soap.SOAPPart;
 
 import org.apache.log4j.Logger;
 
+import com.ibm.ws.soap.resources.soap;
+
 public class ClientWSUtil {
 	static Logger log = LoggerUtil.getLog();
 	private static SOAPEnvelope soapEnvelope;

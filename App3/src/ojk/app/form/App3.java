@@ -10,10 +10,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
+
+import ojk.app.login.Login;
 import ojk.app.poc3.POC3;
 import ojk.dao.impl.DaoPOC3Impl;
 
@@ -33,6 +36,17 @@ public class App3 implements Serializable {
 		refresh();
 	}
 
+	@ManagedProperty(value = "#{Login}")
+	private Login login;
+
+	public void setLogin(Login clogin) {
+		this.login = clogin;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
 	@PostConstruct
 	public void init() {
 		selectedPOC = new POC3();
@@ -49,10 +63,11 @@ public class App3 implements Serializable {
 		this.selectedPOC = null;
 		try {
 			pocs = DaoPOC3Impl.read();
-		} catch (SQLException e) {
-			log.error(LoggerUtil.getStackTrace(e));
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));
+			this.strMessage = e.getMessage();
+			this.strMessageLong = LoggerUtil.getStackTrace(e);
+			this.kondisiWarn = true;
 		}
 	}
 

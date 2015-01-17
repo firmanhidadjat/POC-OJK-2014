@@ -24,10 +24,12 @@ import ojk.app.poc6.POC6;
 public class POC6Client {
 	static Logger log = LoggerUtil.getLog();
 	// static final String endpoint = "http://localhost:9080/App5/POC6Service";
-	static final String endpoint = "http://hostdb/App5/POC6Service";
+	static final String endpoint = "http://hostdb/abc/App5/POC6Service";
+	// static final String endpoint = "http://hostdb/ESB/POC6Service";
 	static final String nameSpace = "http://ojk.com/poc6/submit";
 
-	public static String echo() throws Exception {
+	public static String echo(String userName, String passwordStr)
+			throws Exception {
 		String operationName = "echo";
 		SOAPEnvelope soapEnvelope = ClientWSUtil.getSoapEnvelope();
 		soapEnvelope.getHeader().removeContents();
@@ -47,13 +49,13 @@ public class POC6Client {
 				.setAttribute(
 						"xmlns:wsu",
 						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-		usernameElement.addTextNode("Budi");
+		usernameElement.addTextNode(userName);
 		SOAPElement password = usernameTokenElement.addChildElement("Password",
 				"wsse");
 		password.setAttribute(
 				"Type",
 				"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-		password.addTextNode("PasswordBudi");
+		password.addTextNode(passwordStr);
 		// ====================================================
 
 		soapEnvelope.getBody().removeContents();
@@ -64,7 +66,7 @@ public class POC6Client {
 		SOAPElement element0 = soapElement.addChildElement("echoParam")
 				.addTextNode("cobaKoneksi");
 		ClientWSUtil.getSoapMessage().saveChanges();
-		// ClientWSUtil.getSoapMessage().writeTo(System.out);
+		ClientWSUtil.getSoapMessage().writeTo(System.out);
 
 		SOAPMessage soapResponse = ClientWSUtil.getSoapConnection().call(
 				ClientWSUtil.getSoapMessage(), endpoint);
@@ -85,8 +87,8 @@ public class POC6Client {
 		}
 	}
 
-	public int sendData(String operation, String IDTransaksi,
-			String TanggalTransaksi, String OriginalAmount,
+	public int sendData(String username, String passwordStr, String operation,
+			String IDTransaksi, String TanggalTransaksi, String OriginalAmount,
 			String ApprovedAmount) throws Exception {
 
 		String operationName = operation.toLowerCase();
@@ -104,29 +106,29 @@ public class POC6Client {
 		element0.addChildElement("OriginalAmount").addTextNode(OriginalAmount);
 		element0.addChildElement("ApprovedAmount").addTextNode(ApprovedAmount);
 		// =============== Tambahkan security header =========================
-				SOAPHeader header = soapEnvelope.getHeader();
-				SOAPElement securityElement = header
-						.addChildElement(
-								"Security",
-								"wsse",
-								"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
+		SOAPHeader header = soapEnvelope.getHeader();
+		SOAPElement securityElement = header
+				.addChildElement(
+						"Security",
+						"wsse",
+						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 
-				SOAPElement usernameTokenElement = securityElement.addChildElement(
-						"UsernameToken", "wsse");
-				SOAPElement usernameElement = usernameTokenElement.addChildElement(
-						"Username", "wsse");
-				usernameElement
-						.setAttribute(
-								"xmlns:wsu",
-								"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-				usernameElement.addTextNode("Budi");
-				SOAPElement password = usernameTokenElement.addChildElement("Password",
-						"wsse");
-				password.setAttribute(
-						"Type",
-						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-				password.addTextNode("PasswordBudi");
-				// ====================================================
+		SOAPElement usernameTokenElement = securityElement.addChildElement(
+				"UsernameToken", "wsse");
+		SOAPElement usernameElement = usernameTokenElement.addChildElement(
+				"Username", "wsse");
+		usernameElement
+				.setAttribute(
+						"xmlns:wsu",
+						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
+		usernameElement.addTextNode(username);
+		SOAPElement password = usernameTokenElement.addChildElement("Password",
+				"wsse");
+		password.setAttribute(
+				"Type",
+				"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
+		password.addTextNode(passwordStr);
+		// ====================================================
 
 		ClientWSUtil.getSoapMessage().saveChanges();
 		// ClientWSUtil.getSoapMessage().writeTo(System.out);

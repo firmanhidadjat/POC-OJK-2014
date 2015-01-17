@@ -29,7 +29,7 @@ public class POC4Service {
 	}
 
 	@WebMethod(operationName = "submit")
-	@WebResult(name = "POC4")
+	@WebResult(name = "POC4Result")
 	public POC4Result submit(@WebParam(name = "POC4") POC4 o)
 			throws SOAPFaultThrower {
 		POC4Result p = new POC4Result();

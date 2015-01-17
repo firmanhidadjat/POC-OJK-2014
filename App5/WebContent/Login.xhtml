@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<style type="text/css">
+.ui-widget {
+	font-size: 80% !important;
+}
+</style>
+	<title>Logins</title>
+</h:head>
+
+<h:body>
+	<p:panel style="border: transparent"></p:panel>
+	<table width="100%">
+		<tr>
+			<td width="5%"></td>
+			<td colspan="2"><p:panel>
+					<h1>Login</h1>
+					<h3>[ #{BacaFile.namaServer} ]</h3>
+				</p:panel></td>
+
+			<td width="5%"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2"><p:panel>
+					<h:form>
+						<table>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="User Name" /></td>
+								<td>:</td>
+								<td><p:inputText id="username" required="true"
+										value="#{Login.username}" /></td>
+								<td><p:message for="username" display="icon" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><p:outputLabel value="Password" /></td>
+								<td>:</td>
+								<td><p:password id="password" required="true"
+										value="#{Login.password}" /></td>
+								<td><p:message for="password" display="icon" /></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><p:commandButton value="Login" id="nonAjax"
+										action="#{Login.Login()}" ajax="false" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</h:form>
+				</p:panel></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2"><p:panel>
+					<table>
+						<tr>
+							<td></td>
+							<td><p:outputLabel value="#{Login.messageError}"
+									style="color: red;font-weight: bold" /></td>
+							<td></td>
+						</tr>
+					</table>
+				</p:panel></td>
+			<td></td>
+		</tr>
+	</table>
+</h:body>
+</html>

@@ -9,7 +9,7 @@
 	font-size: 80% !important;
 }
 </style>
-	<title>Aplikasi 1</title>
+	<title>Form 1_2</title>
 </h:head>
 
 <h:body>
@@ -17,8 +17,18 @@
 	<table width="100%">
 		<tr>
 			<td width="5%"></td>
+			<td colspan="2" style="text-align: right"><p:commandLink
+					actionListener="#{Login.doRedirect}" value="Logout" ajax="false"
+					immediate="true">
+					<f:attribute name="namaHalaman" value="Login.xhtml" />
+				</p:commandLink></td>
+			<td width="5%"></td>
+		</tr>
+		<tr>
+			<td width="5%"></td>
 			<td colspan="2"><p:panel>
-					<h1>Aplikasi 1_2</h1>
+					<h1>Form 1_2</h1>
+					<h3>[ #{BacaFile.namaServer} ]</h3>
 				</p:panel></td>
 
 			<td width="5%"></td>
@@ -40,14 +50,12 @@
 								<td></td>
 								<td><p:outputLabel value="Password" /></td>
 								<td>:</td>
-								<td>
-								
-								<p:password id="password" required="true"
+								<td><p:password id="password" required="true"
 										value="#{App1_2.password}" /></td>
 								<td><p:message for="password" display="icon" /></td>
 							</tr>
-							
-							
+
+
 							<tr>
 								<td></td>
 								<td></td>

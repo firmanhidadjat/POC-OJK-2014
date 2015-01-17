@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ojk.com/poc4/submit" targetNamespace="http://ojk.com/poc4/submit" version="1.0">
+
+  <xs:element name="SOAPFaultThrower" nillable="true" type="tns:faultInfoDetail"/>
+
+  <xs:element name="echo" type="tns:echo"/>
+
+  <xs:element name="echoResponse" type="tns:echoResponse"/>
+
+  <xs:element name="getResult" type="tns:getResult"/>
+
+  <xs:element name="getResultResponse" type="tns:getResultResponse"/>
+
+  <xs:element name="poc4" type="tns:poc4"/>
+
+  <xs:element name="submit" type="tns:submit"/>
+
+  <xs:element name="submitAsync" type="tns:submitAsync"/>
+
+  <xs:element name="submitAsyncResponse" type="tns:submitAsyncResponse"/>
+
+  <xs:element name="submitResponse" type="tns:submitResponse"/>
+
+  <xs:complexType name="submitAsync">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="POC4" type="tns:poc4"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="poc4">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDTransaksi" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TanggalTransaksi" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="submitAsyncResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="faultInfoDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="echo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="echoParam" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="echoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="echo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="POC4" type="tns:poc4"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getResultResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="POC4Result" type="tns:poc4Result"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="poc4Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDTransaksi" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="Status" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="submit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="POC4" type="tns:poc4"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="submitResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="POC4Result" type="tns:poc4Result"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

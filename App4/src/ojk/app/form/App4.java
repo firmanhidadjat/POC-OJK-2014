@@ -12,12 +12,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
 
+import ojk.app.login.Login;
 import ojk.app.poc5.POC5;
 import ojk.app.poc5.client.POC5Client;
 import ojk.dao.impl.DaoPOC5Impl;
@@ -41,6 +43,17 @@ public class App4 implements Serializable {
 
 	public App4() {
 		refresh();
+	}
+
+	@ManagedProperty(value = "#{Login}")
+	private Login login;
+
+	public void setLogin(Login clogin) {
+		this.login = clogin;
+	}
+
+	public Login getLogin() {
+		return login;
 	}
 
 	@PostConstruct
@@ -70,7 +83,14 @@ public class App4 implements Serializable {
 
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));
-			this.strMessage = e.getMessage();
+			if (e.getMessage().contains("Unauthorized address")) {
+				this.strMessage = "Invalid user name or password";
+			} else if (e.getMessage().contains("Forbidden IP Address")) {
+				this.strMessage = "Forbidden IP Address";
+			} else {
+				this.strMessage = e.getMessage();
+				// throw new Exception(e);
+			}
 			this.strMessageLong = LoggerUtil.getStackTrace(e);
 			this.kondisiWarn = true;
 		}
@@ -81,7 +101,9 @@ public class App4 implements Serializable {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			POC5Client p = new POC5Client();
-			p.sendData("submit", this.idTransaksi.toString(),
+//			p.sendData(login.getUsernameCache(), login.getPasswordCache(),
+			p.sendData("Budi", "PasswordBudi",
+					"submit", this.idTransaksi.toString(),
 					sdf.format(this.tanggalTransaksi),
 					this.originalAmount.toString(),
 					this.approvedAmount.toString(), this.taxAmount.toString());
@@ -92,7 +114,14 @@ public class App4 implements Serializable {
 			refresh();
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));
-			this.strMessage = e.getMessage();
+			if (e.getMessage().contains("Unauthorized address")) {
+				this.strMessage = "Invalid user name or password";
+			} else if (e.getMessage().contains("Forbidden IP Address")) {
+				this.strMessage = "Forbidden IP Address";
+			} else {
+				this.strMessage = e.getMessage();
+				// throw new Exception(e);
+			}
 			this.strMessageLong = LoggerUtil.getStackTrace(e);
 			this.kondisiWarn = true;
 		}

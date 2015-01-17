@@ -24,12 +24,13 @@ import ojk.app.poc2.POC2;
 
 public class POC2Client {
 	static Logger log = LoggerUtil.getLog();
-	// static final String endpointSubmit =
-	// "http://localhost:9080/App2/POC2Service";
-	static final String endpoint = "http://hostdb/App2/POC2Service";
+	// static final String endpoint = "http://hostdb/App2/POC2Service";
+	static final String endpoint = "http://hostdb/ESB/POC2Service";
+	// static final String endpoint = "http://hostapp1:9080/App2/POC2Service";
 	static final String nameSpace = "http://ojk.com/poc2/submit";
 
-	public static String echo() throws Exception {
+	public static String echo(String userName, String passwordStr)
+			throws Exception {
 		String operationName = "echo";
 		SOAPEnvelope soapEnvelope = ClientWSUtil.getSoapEnvelope();
 		soapEnvelope.getHeader().removeContents();
@@ -49,13 +50,13 @@ public class POC2Client {
 				.setAttribute(
 						"xmlns:wsu",
 						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-		usernameElement.addTextNode("Budi");
+		usernameElement.addTextNode(userName);
 		SOAPElement password = usernameTokenElement.addChildElement("Password",
 				"wsse");
 		password.setAttribute(
 				"Type",
 				"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-		password.addTextNode("PasswordBudi");
+		password.addTextNode(passwordStr);
 		// ====================================================
 
 		soapEnvelope.getBody().removeContents();
@@ -66,7 +67,7 @@ public class POC2Client {
 		SOAPElement element0 = soapElement.addChildElement("echoParam")
 				.addTextNode("cobaKoneksi");
 		ClientWSUtil.getSoapMessage().saveChanges();
-		// ClientWSUtil.getSoapMessage().writeTo(System.out);
+		ClientWSUtil.getSoapMessage().writeTo(System.out);
 
 		SOAPMessage soapResponse = ClientWSUtil.getSoapConnection().call(
 				ClientWSUtil.getSoapMessage(), endpoint);
@@ -87,7 +88,7 @@ public class POC2Client {
 		}
 	}
 
-	public int sendData(String operation, String TransactionID,
+	public int sendData(String username, String passwordStr, String operation, String TransactionID,
 			String FirstName, String LastName, String Notes, String Status,
 			String TransactionValue, String ApprovedAmount, String Pin)
 			throws Exception {
@@ -126,25 +127,47 @@ public class POC2Client {
 				.setAttribute(
 						"xmlns:wsu",
 						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-		usernameElement.addTextNode("Budi");
+		usernameElement.addTextNode(username);
 		SOAPElement password = usernameTokenElement.addChildElement("Password",
 				"wsse");
 		password.setAttribute(
 				"Type",
 				"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-		password.addTextNode("PasswordBudi");
+		password.addTextNode(passwordStr);
 		// ====================================================
 
 		ClientWSUtil.getSoapMessage().saveChanges();
+		// ClientWSUtil.getSoapMessage().writeTo(System.out);
+
+	
+		// if(ClientWSUtil.getSoapConnection()!=null){
+		// log.debug("uyeeeee1111111111111");
+		// }else{
+		// log.debug("uyeeeee22222222222");
+		// }
+		// if(ClientWSUtil.getSoapConnection().call(null, endpoint)!=null){
+		// log.debug("uyeeeee33333333333");
+		// }else{
+		// log.debug("uyeeeee44444444444");
+		// }
+
+//		log.debug("++++++++++++++++++ "
+//				+ ClientWSUtil.getSoapMessage().toString());
+//		log.debug("++++++++++++++++++ "
+//				+ ClientWSUtil.getSoapMessage().getContentDescription());
+
 		getObj(ClientWSUtil.getSoapConnection().call(
 				ClientWSUtil.getSoapMessage(), endpoint));
+
 		return 0;
 
 	}
 
 	public static POC2 getObj(SOAPMessage soapResponse) throws Exception {
+		log.debug("CCCCCCCCCCCCCCCCC");
 		Node dataBody = soapResponse.getSOAPPart().getEnvelope().getBody()
 				.getElementsByTagName("POC2").item(0);
+		log.debug("DDDDD");
 		if (dataBody == null) {
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 			soapResponse.writeTo(output);

@@ -17,8 +17,18 @@
 		<table width="100%">
 			<tr>
 				<td width="5%"></td>
+				<td colspan="2" style="text-align: right"><p:commandLink
+						actionListener="#{Login.doRedirect}" value="Logout"
+						ajax="false" immediate="true">
+						<f:attribute name="namaHalaman" value="Login.xhtml" />
+					</p:commandLink></td>
+				<td width="5%"></td>
+			</tr>
+			<tr>
+				<td width="5%"></td>
 				<td colspan="2"><p:panel>
 						<h1>Form B</h1>
+						<h3>[ #{BacaFile.namaServer} ]</h3>
 					</p:panel></td>
 
 				<td width="5%"></td>
@@ -59,7 +69,8 @@
 								<td></td>
 								<td></td>
 								<td><p:commandButton value="Submit" id="submitBTN"
-										actionListener="#{formB.kirimData}" ajax="true" update="form1:tabelData" /></td>
+										actionListener="#{formB.kirimData}" ajax="true"
+										update="form1:tabelData" /></td>
 								<td></td>
 							</tr>
 						</table>
@@ -75,7 +86,7 @@
 							<tr>
 								<td></td>
 								<td></td>
-								<td><p:commandButton value="Get Data"
+								<td><p:commandButton value="Get Result"
 										actionListener="#{formB.getData()}" ajax="true"
 										update="form1:tabelData" /></td>
 								<td></td>

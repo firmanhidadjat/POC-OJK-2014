@@ -8,7 +8,6 @@ import id.co.hanoman.exception.SOAPFaultExceptionHandler;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
@@ -24,10 +23,12 @@ import ojk.app.poc4.POC4;
 public class POC4Client {
 	static Logger log = LoggerUtil.getLog();
 	// static final String endpoint = "http://localhost:9080/AppWS/POC4Service";
-	static final String endpoint = "http://hostdb/AppWS/POC4Service";
+	// static final String endpoint = "http://hostdb/AppWS/POC4Service";
+	static final String endpoint = "http://hostdb/ESB/POC4Service";
 	static final String nameSpace = "http://ojk.com/poc4/submit";
 
-	public static String echo() throws Exception {
+	public static String echo(String userName, String passwordStr)
+			throws Exception {
 		String operationName = "echo";
 		SOAPEnvelope soapEnvelope = ClientWSUtil.getSoapEnvelope();
 		soapEnvelope.getHeader().removeContents();
@@ -47,13 +48,13 @@ public class POC4Client {
 				.setAttribute(
 						"xmlns:wsu",
 						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-		usernameElement.addTextNode("Budi");
+		usernameElement.addTextNode(userName);
 		SOAPElement password = usernameTokenElement.addChildElement("Password",
 				"wsse");
 		password.setAttribute(
 				"Type",
 				"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-		password.addTextNode("PasswordBudi");
+		password.addTextNode(passwordStr);
 		// ====================================================
 
 		soapEnvelope.getBody().removeContents();
@@ -64,7 +65,7 @@ public class POC4Client {
 		SOAPElement element0 = soapElement.addChildElement("echoParam")
 				.addTextNode("cobaKoneksi");
 		ClientWSUtil.getSoapMessage().saveChanges();
-		// ClientWSUtil.getSoapMessage().writeTo(System.out);
+		ClientWSUtil.getSoapMessage().writeTo(System.out);
 
 		SOAPMessage soapResponse = ClientWSUtil.getSoapConnection().call(
 				ClientWSUtil.getSoapMessage(), endpoint);

@@ -61,11 +61,12 @@ public class DaoPOC3Impl {
 	public static int update(BigDecimal IDTRANSAKSI, String FULLNAME,
 			String KETERANGAN, String STATUS, BigDecimal NILAITRANSAKSI,
 			BigDecimal NILAIDISETUJUI, String PIN) throws Exception {
+		
 		PreparedStatement preparedStatement;
 		preparedStatement = DaoUtil
 				.getKoneksi()
 				.prepareStatement(
-						"update POC3 set FULLNAME = ? KETERANGAN = ?, STATUS = ?, NILAITRANSAKSI = ?, NILAIDISETUJUI = ?, PIN =? where IDTRANSAKSI= ? ");
+						"update POC3 set FULLNAME = ?, KETERANGAN = ?, STATUS = ?, NILAITRANSAKSI = ?, NILAIDISETUJUI = ?, PIN =? where IDTRANSAKSI= ? ");
 
 		preparedStatement.setString(1, FULLNAME);
 		preparedStatement.setString(2, KETERANGAN);

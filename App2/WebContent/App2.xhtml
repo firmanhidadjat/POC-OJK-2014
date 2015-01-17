@@ -9,17 +9,27 @@
 	font-size: 80% !important;
 }
 </style>
-	<title>Aplikasi 2</title>
+	<title>Form 2</title>
 
 </h:head>
 
 <h:body>
-	<p:panel style="border: transparent"></p:panel>
 	<table width="100%">
 		<tr>
 			<td width="5%"></td>
+			<td colspan="2" style="text-align: right"><h:form>
+					<p:commandLink actionListener="#{Login.doRedirect}" value="Logout"
+						ajax="false" immediate="true">
+						<f:attribute name="namaHalaman" value="Login.xhtml" />
+					</p:commandLink>
+				</h:form></td>
+			<td width="5%"></td>
+		</tr>
+		<tr>
+			<td width="5%"></td>
 			<td colspan="2"><p:panel>
-					<h1>Aplikasi 2</h1>
+					<h1>Form 2</h1>
+					<h3>[ #{BacaFile.namaServer} ]</h3>
 				</p:panel></td>
 
 			<td width="5%"></td>

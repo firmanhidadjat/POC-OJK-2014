@@ -25,7 +25,8 @@ import ojk.app.poc5.POC5;
 public class POC5Client {
 	static Logger log = LoggerUtil.getLog();
 	// static final String endpoint = "http://localhost:9080/App4/POC5Service";
-	static final String endpoint = "http://hostdb/App4/POC5Service";
+	static final String endpoint = "http://hostdb/abc/App4/POC5Service";
+//	static final String endpoint = "http://hostdb/ESB/POC5Service";
 	static final String nameSpace = "http://ojk.com/poc5/submit";
 
 	public static String echo() throws Exception {
@@ -86,7 +87,7 @@ public class POC5Client {
 		}
 	}
 
-	public int sendData(String operation, String IDTransaksi,
+	public int sendData(String username, String passwordStr, String operation, String IDTransaksi,
 			String TanggalTransaksi, String OriginalAmount,
 			String ApprovedAmount, String TaxAmount) throws Exception {
 		String operationName = operation.toLowerCase();
@@ -120,13 +121,13 @@ public class POC5Client {
 						.setAttribute(
 								"xmlns:wsu",
 								"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-				usernameElement.addTextNode("Budi");
+				usernameElement.addTextNode(username);
 				SOAPElement password = usernameTokenElement.addChildElement("Password",
 						"wsse");
 				password.setAttribute(
 						"Type",
 						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-				password.addTextNode("PasswordBudi");
+				password.addTextNode(passwordStr);
 				// ====================================================
 
 		ClientWSUtil.getSoapMessage().saveChanges();

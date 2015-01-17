@@ -17,5 +17,4 @@ public class DaoUtil {
 		}
 		return koneksi;
 	}
-
 }

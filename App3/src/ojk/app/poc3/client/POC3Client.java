@@ -24,7 +24,8 @@ import ojk.app.poc3.POC3;
 public class POC3Client {
 	static Logger log = LoggerUtil.getLog();
 	// static final String endpoint = "http://localhost:9080/App3/POC3Service";
-	static final String endpoint = "http://hostdb/App3/POC3Service";
+//	static final String endpoint = "http://hostdb/App3/POC3Service";
+	static final String endpoint = "http://hostdb/ESB/POC3Service";
 	static final String nameSpace = "http://ojk.com/poc3/submit";
 
 	public int sendData(String operation, String IDTransaksi,

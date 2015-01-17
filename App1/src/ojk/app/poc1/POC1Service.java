@@ -60,10 +60,10 @@ public class POC1Service {
 					o.getKeterangan(), String.valueOf(o.getStatus()),
 					o.getNilaiTransaksi(), o.getNilaiDisetujui(),
 					o.getPin());
-			POC1Client p = new POC1Client();
-			p.sendData("submit", o.getIDTransaksi().toString(),
-					o.getFullName(), o.getKeterangan(), null, o
-							.getNilaiTransaksi().toString(), "0", o.getPin());
+//			POC1Client p = new POC1Client();
+//			p.sendData("submit", o.getIDTransaksi().toString(),
+//					o.getFullName(), o.getKeterangan(), null, o
+//							.getNilaiTransaksi().toString(), "0", o.getPin());
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));
 			throw new SOAPFaultThrower(e.getMessage(), e);

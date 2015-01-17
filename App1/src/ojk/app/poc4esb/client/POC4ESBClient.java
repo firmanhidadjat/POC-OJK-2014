@@ -2,10 +2,8 @@ package ojk.app.poc4esb.client;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
-
 import id.co.hanoman.LoggerUtil;
 import id.co.hanoman.exception.SOAPFaultExceptionHandler;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
@@ -16,10 +14,8 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
-
 import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
-
 import ojk.app.client.ClientWSUtil;
 import ojk.app.poc4esb.POC4Result;
 
@@ -28,7 +24,8 @@ public class POC4ESBClient {
 	// static final String endpoint = "http://localhost:9080/AppWS/POC4Service";
 	// static final String endpoint =
 	// "http://loadbalancer:7800/AppWS/POC4Service";
-	static final String endpoint = "http://hostdb/App1/POC4ServiceESB";
+//	static final String endpoint = "http://hostdb/App1/POC4ServiceESB";
+	static final String endpoint = "http://hostdb/ESB/POC4ServiceESB";
 	static final String nameSpace = "http://ojk.com/poc4/submit";
 
 	public static String echo() throws Exception {
@@ -89,7 +86,7 @@ public class POC4ESBClient {
 		}
 	}
 
-	public static int sendData(String operation, String IDTransaksi,
+	public static int sendData(String username, String passwordStr, String operation, String IDTransaksi,
 			String TanggalTransaksi) throws Exception {
 
 		String operationName = operation;
@@ -121,17 +118,17 @@ public class POC4ESBClient {
 				.setAttribute(
 						"xmlns:wsu",
 						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-		usernameElement.addTextNode("Budi");
+		usernameElement.addTextNode(username);
 		SOAPElement password = usernameTokenElement.addChildElement("Password",
 				"wsse");
 		password.setAttribute(
 				"Type",
 				"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-		password.addTextNode("PasswordBudi");
+		password.addTextNode(passwordStr);
 		// ====================================================
 
 		ClientWSUtil.getSoapMessage().saveChanges();
-		// ClientWSUtil.getSoapMessage().writeTo(System.out);
+//		 ClientWSUtil.getSoapMessage().writeTo(System.out);
 		getObj(ClientWSUtil.getSoapConnection().call(
 				ClientWSUtil.getSoapMessage(), endpoint));
 		return 0;
@@ -141,7 +138,7 @@ public class POC4ESBClient {
 		// }
 	}
 
-	public static POC4Result getResult(String operation, String IDTransaksi,
+	public static POC4Result getResult(String username, String passwordStr, String operation, String IDTransaksi,
 			String TanggalTransaksi) throws Exception {
 		String operationName = operation;
 		// try {
@@ -155,6 +152,40 @@ public class POC4ESBClient {
 		element0.addChildElement("IDTransaksi").addTextNode(IDTransaksi);
 		element0.addChildElement("TanggalTransaksi").addTextNode(
 				TanggalTransaksi);
+		
+		
+		// =============== Tambahkan security header =========================
+				SOAPHeader header = soapEnvelope.getHeader();
+				SOAPElement securityElement = header
+						.addChildElement(
+								"Security",
+								"wsse",
+								"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
+
+				SOAPElement usernameTokenElement = securityElement.addChildElement(
+						"UsernameToken", "wsse");
+				SOAPElement usernameElement = usernameTokenElement.addChildElement(
+						"Username", "wsse");
+				usernameElement
+						.setAttribute(
+								"xmlns:wsu",
+								"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
+				usernameElement.addTextNode(username);
+				SOAPElement password = usernameTokenElement.addChildElement("Password",
+						"wsse");
+				password.setAttribute(
+						"Type",
+						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
+				password.addTextNode(passwordStr);
+				// ====================================================
+		
+		
+		
+		
+		
+		
+		
+		
 		ClientWSUtil.getSoapMessage().saveChanges();
 		// ClientWSUtil.getSoapMessage().writeTo(System.out);
 		POC4Result p = getObj(ClientWSUtil.getSoapConnection().call(

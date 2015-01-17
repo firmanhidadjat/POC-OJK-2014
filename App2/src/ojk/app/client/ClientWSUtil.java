@@ -20,6 +20,7 @@ public class ClientWSUtil {
 	public static SOAPConnection getSoapConnection() {
 		try {
 			if (soapConnection == null) {
+				log.debug("wsclient getkoneksi null");
 				SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory
 						.newInstance();
 				soapConnection = soapConnectionFactory.createConnection();

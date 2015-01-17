@@ -7,15 +7,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "IDTransaksi", "FullName", "Keterangan", "Status", "NilaiTransaksi",
-		"NilaiDisetujui", "Pin" })
+@XmlType(propOrder = { "IDTransaksi", "FullName", "Keterangan", "Status",
+		"NilaiTransaksi", "NilaiDisetujui", "Pin" })
 public class POC1 {
-	
-	public POC1(){
-		
+
+	public POC1() {
+
 	}
-	public POC1(BigDecimal IDTransaksi, String FullName, String Keterangan, String Status,
-			BigDecimal NilaiTransaksi, BigDecimal NilaiDisetujui, BigDecimal Pin) {
+
+	public POC1(BigDecimal IDTransaksi, String FullName, String Keterangan,
+			String Status, BigDecimal NilaiTransaksi,
+			BigDecimal NilaiDisetujui, String Pin) {
 		this.IDTransaksi = IDTransaksi;
 		this.FullName = FullName;
 		this.Keterangan = Keterangan;
@@ -38,7 +40,7 @@ public class POC1 {
 	@XmlElement(name = "NilaiDisetujui")
 	private BigDecimal NilaiDisetujui;
 	@XmlElement(name = "Pin")
-	private BigDecimal Pin;
+	private String Pin;
 
 	public BigDecimal getIDTransaksi() {
 		return IDTransaksi;
@@ -51,9 +53,11 @@ public class POC1 {
 	public String getFullName() {
 		return FullName;
 	}
+
 	public void setFullName(String fullName) {
 		FullName = fullName;
 	}
+
 	public String getKeterangan() {
 		return Keterangan;
 	}
@@ -86,11 +90,11 @@ public class POC1 {
 		NilaiDisetujui = nilaiDisetujui;
 	}
 
-	public BigDecimal getPin() {
+	public String getPin() {
 		return Pin;
 	}
 
-	public void setPin(BigDecimal pin) {
+	public void setPin(String pin) {
 		Pin = pin;
 	}
 

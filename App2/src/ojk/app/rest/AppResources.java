@@ -43,7 +43,8 @@ public class AppResources {
 			@PathParam("Pin") String Pin) throws Exception {
 
 		POC2Client p = new POC2Client();
-		if (p.sendData("update", TransactionID, FirstName, LastName, Notes, Status,
+		if (p.sendData("StringUsername", "StringPassword", "update",
+				TransactionID, FirstName, LastName, Notes, Status,
 				TransactionValue, ApprovedAmount, Pin) == 0) {
 			return 0;
 		} else {

@@ -24,10 +24,12 @@ import ojk.app.poc7.POC7;
 public class POC7Client {
 	static Logger log = LoggerUtil.getLog();
 	// static final String endpoint = "http://localhost:9080/App6/POC7Service";
-	static final String endpoint = "http://hostdb/App6/POC7Service";
+	static final String endpoint = "http://hostdb/abc/App6/POC7Service";
+	// static final String endpoint = "http://hostdb/ESB/POC7Service";
 	static final String nameSpace = "http://ojk.com/poc7/submit";
 
-	public static String echo() throws Exception {
+	public static String echo(String username, String passwordStr)
+			throws Exception {
 		String operationName = "echo";
 		SOAPEnvelope soapEnvelope = ClientWSUtil.getSoapEnvelope();
 		soapEnvelope.getHeader().removeContents();
@@ -47,13 +49,13 @@ public class POC7Client {
 				.setAttribute(
 						"xmlns:wsu",
 						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-		usernameElement.addTextNode("Budi");
+		usernameElement.addTextNode(username);
 		SOAPElement password = usernameTokenElement.addChildElement("Password",
 				"wsse");
 		password.setAttribute(
 				"Type",
 				"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-		password.addTextNode("PasswordBudi");
+		password.addTextNode(passwordStr);
 		// ====================================================
 
 		soapEnvelope.getBody().removeContents();
@@ -85,9 +87,9 @@ public class POC7Client {
 		}
 	}
 
-	public int sendData(String operation, String IDTransaksi,
-			String TanggalTransaksi, String OriginalAmount, String TaxAmount)
-			throws Exception {
+	public int sendData(String username, String passwordStr, String operation,
+			String IDTransaksi, String TanggalTransaksi, String OriginalAmount,
+			String TaxAmount) throws Exception {
 
 		String operationName = operation.toLowerCase();
 
@@ -104,29 +106,29 @@ public class POC7Client {
 		element0.addChildElement("OriginalAmount").addTextNode(OriginalAmount);
 		element0.addChildElement("TaxAmount").addTextNode(TaxAmount);
 		// =============== Tambahkan security header =========================
-				SOAPHeader header = soapEnvelope.getHeader();
-				SOAPElement securityElement = header
-						.addChildElement(
-								"Security",
-								"wsse",
-								"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
+		SOAPHeader header = soapEnvelope.getHeader();
+		SOAPElement securityElement = header
+				.addChildElement(
+						"Security",
+						"wsse",
+						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 
-				SOAPElement usernameTokenElement = securityElement.addChildElement(
-						"UsernameToken", "wsse");
-				SOAPElement usernameElement = usernameTokenElement.addChildElement(
-						"Username", "wsse");
-				usernameElement
-						.setAttribute(
-								"xmlns:wsu",
-								"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
-				usernameElement.addTextNode("Budi");
-				SOAPElement password = usernameTokenElement.addChildElement("Password",
-						"wsse");
-				password.setAttribute(
-						"Type",
-						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-				password.addTextNode("PasswordBudi");
-				// ====================================================
+		SOAPElement usernameTokenElement = securityElement.addChildElement(
+				"UsernameToken", "wsse");
+		SOAPElement usernameElement = usernameTokenElement.addChildElement(
+				"Username", "wsse");
+		usernameElement
+				.setAttribute(
+						"xmlns:wsu",
+						"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
+		usernameElement.addTextNode(username);
+		SOAPElement password = usernameTokenElement.addChildElement("Password",
+				"wsse");
+		password.setAttribute(
+				"Type",
+				"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
+		password.addTextNode(passwordStr);
+		// ====================================================
 
 		ClientWSUtil.getSoapMessage().saveChanges();
 		// ClientWSUtil.getSoapMessage().writeTo(System.out);

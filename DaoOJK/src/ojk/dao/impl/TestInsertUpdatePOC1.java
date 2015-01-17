@@ -162,6 +162,50 @@ public class TestInsertUpdatePOC1 {
 		}
 
 		// ==================================================================
+
+		for (int i = 0; i < 1; i++) {
+			if (DaoPOC4_1Impl.insert(new BigDecimal(i), new Timestamp(
+					new Date().getTime()), "BANDUNG") == 1) {
+				System.out.println("Insert DB Gagaaaaaal");
+			} else {
+				System.out.println("insert Berhasil berhasil hore hore");
+			}
+		}
+
+		for (int i = 0; i < 1; i++) {
+			if (DaoPOC4_1Impl.update(new BigDecimal(i), new Timestamp(
+					new Date().getTime())) == 1) {
+				System.out.println("Update DB Gagaaaaaal");
+			} else {
+				System.out.println("Update Berhasil berhasil hore hore");
+			}
+		}
+
+		// ================================================================
+		for (int i = 0; i < 1; i++) {
+			if (DaoPOC2Ver2Impl.insert(new BigDecimal(i), "Budi", "Andouuuuk",
+					"wawawa notesss", "S", new BigDecimal("24235"),
+					new BigDecimal("2893523"), "32523",
+					new BigDecimal("768567")) == 1) {
+				System.out.println("Insert DB Gagaaaaaal");
+			} else {
+				System.out.println("insert Berhasil berhasil hore hore");
+			}
+		}
+
+		for (int i = 0; i < 1; i++) {
+			if (DaoPOC2Ver2Impl.update(new BigDecimal(i), "ADIGUNA", "SUTOWO",
+					"NGOAHAHAHA " + i, "SETATUS", new BigDecimal("34085954"),
+					new BigDecimal("39024858390"), "02350", new BigDecimal(
+							"9028359")) == 1) {
+				System.out.println("Update DB Gagaaaaaal");
+			} else {
+				System.out.println("Update Berhasil berhasil hore hore");
+			}
+		}
+
+		// ================================================================
+
 		try {
 			DaoPOC1Impl.delete();
 			DaoPOC2Impl.delete();
@@ -170,6 +214,8 @@ public class TestInsertUpdatePOC1 {
 			DaoPOC5Impl.delete();
 			DaoPOC6Impl.delete();
 			DaoPOC7Impl.delete();
+			DaoPOC4_1Impl.delete();
+			DaoPOC2Ver2Impl.delete();
 			System.out.println("DELETE SAKSES");
 		} catch (Exception e) {
 			System.out.println("DELETE GAGAL");

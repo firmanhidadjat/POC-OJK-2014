@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ojk.com/poc4/submit" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="POC4ServiceESB" targetNamespace="http://ojk.com/poc4/submit">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://ojk.com/poc4/submit" schemaLocation="POC4ServiceESB_schema1.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="getResult">
+    <part element="tns:getResult" name="parameters">
+    </part>
+  </message>
+  <message name="echoResponse">
+    <part element="tns:echoResponse" name="parameters">
+    </part>
+  </message>
+  <message name="echo">
+    <part element="tns:echo" name="parameters">
+    </part>
+  </message>
+  <message name="submitAsyncResponse">
+    <part element="tns:submitAsyncResponse" name="parameters">
+    </part>
+  </message>
+  <message name="submitResponse">
+    <part element="tns:submitResponse" name="parameters">
+    </part>
+  </message>
+  <message name="submit">
+    <part element="tns:submit" name="parameters">
+    </part>
+  </message>
+  <message name="submitAsync">
+    <part element="tns:submitAsync" name="parameters">
+    </part>
+  </message>
+  <message name="getResultResponse">
+    <part element="tns:getResultResponse" name="parameters">
+    </part>
+  </message>
+  <message name="SOAPFaultThrower">
+    <part element="tns:SOAPFaultThrower" name="fault">
+    </part>
+  </message>
+  <portType name="POC4ServiceESB">
+    <operation name="echo">
+      <input message="tns:echo" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/echoRequest">
+    </input>
+      <output message="tns:echoResponse" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/echoResponse">
+    </output>
+    </operation>
+    <operation name="submit">
+      <input message="tns:submit" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/submitRequest">
+    </input>
+      <output message="tns:submitResponse" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/submitResponse">
+    </output>
+    </operation>
+    <operation name="submitAsync">
+      <input message="tns:submitAsync" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/submitAsyncRequest">
+    </input>
+      <output message="tns:submitAsyncResponse" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/submitAsyncResponse">
+    </output>
+      <fault message="tns:SOAPFaultThrower" name="SOAPFaultThrower" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/submitAsync/Fault/SOAPFaultThrower">
+    </fault>
+    </operation>
+    <operation name="getResult">
+      <input message="tns:getResult" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/getResultRequest">
+    </input>
+      <output message="tns:getResultResponse" wsam:Action="http://ojk.com/poc4/submit/POC4ServiceESB/getResultResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="POC4ServiceESBPortBinding" type="tns:POC4ServiceESB">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="echo">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="submit">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="submitAsync">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SOAPFaultThrower">
+        <soap:fault name="SOAPFaultThrower" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getResult">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="POC4ServiceESB">
+    <port binding="tns:POC4ServiceESBPortBinding" name="POC4ServiceESBPort">
+      <soap:address location="http://hostapp1:9080/App1/POC4ServiceESB"/>
+    </port>
+  </service>
+</definitions>

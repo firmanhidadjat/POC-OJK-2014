@@ -28,6 +28,7 @@ public class POC2Service {
 	@WebMethod(operationName = "submit")
 	@WebResult(name = "POC2")
 	public void submit(@WebParam(name = "POC2") POC2 o) throws SOAPFaultThrower {
+		log.debug("method SUBMITTTTTTTTTTTTTTT");
 		try {
 			DaoPOC2Impl.insert(o.getTransactionID(), o.getFirstName(),
 					o.getLastName(), o.getNotes(), null,
@@ -41,6 +42,7 @@ public class POC2Service {
 	@WebMethod(action = "update")
 	@WebResult(name = "POC2")
 	public void update(@WebParam(name = "POC2") POC2 o) throws SOAPFaultThrower {
+		log.debug("method UPDATEEEEEEEEEEEEE");
 		try {
 			DaoPOC2Impl.update(o.getTransactionID(), o.getFirstName(),
 					o.getLastName(), o.getNotes(),
@@ -49,10 +51,11 @@ public class POC2Service {
 
 			POC2Client p = new POC2Client();
 
-			p.sendData("update", o.getTransactionID().toString(), o
-					.getFirstName(), o.getLastName(), o.getNotes(), o
-					.getStatus(), o.getTransactionValue().toString(), o
-					.getApprovedAmount().toString(), o.getPin());
+			p.sendData("StringUsername", "StringPassword", "update", o
+					.getTransactionID().toString(), o.getFirstName(), o
+					.getLastName(), o.getNotes(), o.getStatus(), o
+					.getTransactionValue().toString(), o.getApprovedAmount()
+					.toString(), o.getPin());
 
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));

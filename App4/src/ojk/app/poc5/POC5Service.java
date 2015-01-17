@@ -37,7 +37,8 @@ public class POC5Service {
 					.getApprovedAmount(), o.getTaxAmount());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			POC5Client p = new POC5Client();
-			p.sendData("submit", o.getIDTransaksi().toString(), sdf.format(o
+			p.sendData("StringUsername", "StringPassword", "submit", o
+					.getIDTransaksi().toString(), sdf.format(o
 					.getTanggalTransaksi()), o.getOriginalAmount().toString(),
 					o.getApprovedAmount().toString(), o.getTaxAmount()
 							.toString());

@@ -35,15 +35,15 @@ public class AppResources {
 			@PathParam("NilaiDisetujui") String NilaiDisetujui,
 			@PathParam("Pin") String Pin) throws Exception {
 
-		POC1Client p = new POC1Client();
-		
-		if (p.sendData("submit", IDTransaksi, FullName, Keterangan, Status,
-				NilaiTransaksi, NilaiDisetujui, Pin) == 0) {
-			return 0;
-		} else {
-			log.error("Kemungkinan proses insert ke DB gagal");
+//		POC1Client p = new POC1Client();
+//		
+//		if (p.sendData("submit", IDTransaksi, FullName, Keterangan, Status,
+//				NilaiTransaksi, NilaiDisetujui, Pin) == 0) {
+//			return 0;
+//		} else {
+//			log.error("Kemungkinan proses insert ke DB gagal");
 			return 1; // return gagal
-		}
+//		}
 
 	}
 }

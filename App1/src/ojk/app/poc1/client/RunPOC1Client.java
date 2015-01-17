@@ -10,7 +10,7 @@ public class RunPOC1Client {
 	public static void main(String[] ad) throws Exception {
 		for (int i = 0; i < 10; i++) {
 			POC1Client d = new POC1Client();
-			if (d.sendData("submit", String.valueOf(i), "Budi Anduk", "keterangan", "1",
+			if (d.sendData("Budi", "PasswordBudi", "submit", String.valueOf(i), "Budi Anduk", "keterangan", "1",
 					"234324", "984358934", "23472374") == 0) {
 				System.out.println("Kirim data sakses");
 			} else {

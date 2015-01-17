@@ -10,12 +10,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
 
+import ojk.app.login.Login;
 import ojk.app.poc2.POC2;
 import ojk.app.poc2.client.POC2Client;
 import ojk.dao.impl.DaoPOC2Impl;
@@ -35,6 +37,17 @@ public class App2 implements Serializable {
 		refresh();
 	}
 
+	@ManagedProperty(value = "#{Login}")
+	private Login login;
+
+	public void setLogin(Login clogin) {
+		this.login = clogin;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
 	@PostConstruct
 	public void init() {
 		selectedPOC = new POC2();
@@ -49,10 +62,15 @@ public class App2 implements Serializable {
 	public void submit() {
 		clearMessage();
 		POC2Client p = new POC2Client();
-
 		try {
-			p.sendData("update",
-					this.selectedPOC.getTransactionID().toString(),
+			// p.echo();
+			if (this.selectedPOC.getNotes() == null
+					|| this.selectedPOC.getNotes().equals("")) {
+				this.selectedPOC.setNotes(" ");
+			}
+
+			p.sendData(login.getUsernameCache(), login.getPasswordCache(),
+					"update", this.selectedPOC.getTransactionID().toString(),
 					this.selectedPOC.getFirstName(), this.selectedPOC
 							.getLastName(), this.selectedPOC.getNotes(),
 					this.selectedPOC.getStatus().toUpperCase(),
@@ -68,7 +86,14 @@ public class App2 implements Serializable {
 			refresh();
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));
-			this.strMessage = e.getMessage();
+			if (e.getMessage().contains("Unauthorized address")) {
+				this.strMessage = "Invalid user name or password";
+			} else if (e.getMessage().contains("Forbidden IP Address")) {
+				this.strMessage = "Forbidden IP Address";
+			} else {
+				this.strMessage = e.getMessage();
+				// throw new Exception(e);
+			}
 			this.strMessageLong = LoggerUtil.getStackTrace(e);
 			this.kondisiWarn = true;
 

@@ -27,14 +27,14 @@ public class POC7Service {
 	public String echo(@WebParam(name = "echoParam") String s) {
 		return s;
 	}
-	
+
 	@WebMethod(operationName = "submit")
 	@WebResult(name = "POC7")
-	public void submit(@WebParam(name = "POC7") POC7 o) throws SOAPFaultThrower{
+	public void submit(@WebParam(name = "POC7") POC7 o) throws SOAPFaultThrower {
 		try {
 			DaoPOC7Impl.insert(o.getIDTransaksi(), new java.sql.Timestamp(o
 					.getTanggalTransaksi().getTime()), o.getOriginalAmount(), o
-					.getTaxAmount());			
+					.getTaxAmount());
 
 		} catch (Exception e) {
 			log.error(LoggerUtil.getStackTrace(e));
@@ -44,14 +44,15 @@ public class POC7Service {
 
 	@WebMethod(operationName = "update")
 	@WebResult(name = "POC7")
-	public void update(@WebParam(name = "POC7") POC7 o) throws SOAPFaultThrower{
+	public void update(@WebParam(name = "POC7") POC7 o) throws SOAPFaultThrower {
 		try {
 			DaoPOC7Impl.update(o.getIDTransaksi(), new java.sql.Timestamp(o
 					.getTanggalTransaksi().getTime()), o.getOriginalAmount(), o
 					.getTaxAmount());
 			POC7Client p = new POC7Client();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-			p.sendData("update", o.getIDTransaksi().toString(), sdf.format(o
+			p.sendData("StringUsername", "StringPassword", "update", o
+					.getIDTransaksi().toString(), sdf.format(o
 					.getTanggalTransaksi()), o.getOriginalAmount().toString(),
 					o.getTaxAmount().toString());
 
